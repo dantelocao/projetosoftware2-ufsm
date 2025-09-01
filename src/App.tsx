@@ -7,7 +7,7 @@ function App() {
   return (
     <>
 
-    <UnityBuild buildPath="/unity/Build" />
+    <UnityBuild buildPath="/buildteste/Build" />
 
     </>
   )
