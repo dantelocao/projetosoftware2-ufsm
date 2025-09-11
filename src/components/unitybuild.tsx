@@ -37,11 +37,11 @@ export default function UnityBuild({
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    const loaderUrl = `${buildPath}/buildteste.loader.js`;
+    const loaderUrl = `${buildPath}/teste.loader.js`;
     const config = {
-      dataUrl: `${buildPath}/buildteste.data`,
-      frameworkUrl: `${buildPath}/buildteste.framework.js`,
-      codeUrl: `${buildPath}/buildteste.wasm`,
+      dataUrl: `${buildPath}/teste.data`,
+      frameworkUrl: `${buildPath}/teste.framework.js`,
+      codeUrl: `${buildPath}/teste.wasm`,
       streamingAssetsUrl: "StreamingAssets",
       companyName: "MyCompany",
       productName: "MyUnityApp",
