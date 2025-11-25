@@ -19,8 +19,8 @@ interface UnityBuildProps {
 
 export default function UnityBuild({
   buildPath,
-  width = 960,
-  height = 600,
+  width = 1400,
+  height = 900,
 }: UnityBuildProps) {
   const unityRef = useRef<HTMLCanvasElement>(null);
   const unityInstanceRef = useRef<any>(null);
@@ -37,11 +37,11 @@ export default function UnityBuild({
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    const loaderUrl = `${buildPath}/teste.loader.js`;
+    const loaderUrl = `${buildPath}/mapaPadraoBuild.loader.js`;
     const config = {
-      dataUrl: `${buildPath}/teste.data`,
-      frameworkUrl: `${buildPath}/teste.framework.js`,
-      codeUrl: `${buildPath}/teste.wasm`,
+      dataUrl: `${buildPath}/mapaPadraoBuild.data`,
+      frameworkUrl: `${buildPath}/mapaPadraoBuild.framework.js`,
+      codeUrl: `${buildPath}/mapaPadraoBuild.wasm`,
       streamingAssetsUrl: "StreamingAssets",
       companyName: "MyCompany",
       productName: "MyUnityApp",
