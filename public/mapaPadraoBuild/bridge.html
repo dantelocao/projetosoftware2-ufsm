@@ -13,29 +13,38 @@
   <script>
     console.log("Bridge carregado. Aguardando mensagem...");
 
-    window.addEventListener("message", (event) => {
-      console.log("Mensagem recebida:", event.data);
+    const ORIGINS_PERMITIDAS = [
+      "https://projetosoftware2.vercel.app",
+      "https://projetosoftware2-ufsm.vercel.app"
+    ];
 
-      if (!event.origin.includes("projetosoftware2.vercel.app")) {
+    window.addEventListener("message", (event) => {
+      console.log("Mensagem recebida:", event.data, " | origem:", event.origin);
+
+      // ❌ Se origem não for aceita → não processa
+      if (!ORIGINS_PERMITIDAS.includes(event.origin)) {
         console.warn("Origem não permitida:", event.origin);
         return;
       }
 
-
+      // ❌ Ignora mensagens que não sejam do tipo certo
       if (!event.data || event.data.type !== "SET_SELECTED_ARTWORKS") {
-        console.warn("Mensagem ignorada");
+        console.warn("Mensagem ignorada", event.data);
         return;
       }
 
-      // Pegamos o payload real
+      // ✅ Pegamos os dados enviados
       const artworks = event.data.payload;
 
-      // Salvamos no localStorage deste domínio (unity)
+      // ✅ Salvamos no localStorage do DEPLOY 2
       localStorage.setItem("selectedArtworks", artworks);
-      console.log("selectedArtworks salvo no localStorage!");
+      console.log("selectedArtworks salvo com sucesso!");
 
-      // Redirecionar para a Unity WebGL
-      window.location.href = "/";
+      // ⏳ Aguarda 100 ms para garantir escrita no localStorage
+      setTimeout(() => {
+        // ✅ Redirecionar para a Unity
+        window.location.href = "/";
+      }, 100);
     });
   </script>
 </body>
