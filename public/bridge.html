@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bridge</title>
-  </head>
-  <body style="background: #111; color: white; font-family: sans-serif;">
-    <h2>Sincronizando dados...</h2>
-    <p>Aguarde, estamos preparando a visualização 3D.</p>
 
-    <script>
-      console.log("Bridge carregado. Aguardando mensagem...");
+<head>
+  <meta charset="UTF-8" />
+  <title>Bridge</title>
+</head>
 
-      window.addEventListener("message", (event) => {
-        console.log("Mensagem recebida:", event.data);
+<body style="background: #111; color: white; font-family: sans-serif;">
+  <h2>Sincronizando dados...</h2>
+  <p>Aguarde, estamos preparando a visualização 3D.</p>
 
-        // Garantir que a mensagem veio do domínio correto
-        if (event.origin !== "https://projetosoftware2.vercel.app") {
-          console.warn("Origem não permitida:", event.origin);
-          return;
-        }
+  <script>
+    console.log("Bridge carregado. Aguardando mensagem...");
 
-        if (!event.data || event.data.type !== "SET_SELECTED_ARTWORKS") {
-          console.warn("Mensagem ignorada");
-          return;
-        }
+    window.addEventListener("message", (event) => {
+      console.log("Mensagem recebida:", event.data);
 
-        // Pegamos o payload real
-        const artworks = event.data.payload;
+      if (!event.origin.includes("projetosoftware2.vercel.app")) {
+        console.warn("Origem não permitida:", event.origin);
+        return;
+      }
 
-        // Salvamos no localStorage deste domínio (unity)
-        localStorage.setItem("selectedArtworks", artworks);
-        console.log("selectedArtworks salvo no localStorage!");
 
-        // Redirecionar para a Unity WebGL
-        window.location.href = "/";
-      });
-    </script>
-  </body>
+      if (!event.data || event.data.type !== "SET_SELECTED_ARTWORKS") {
+        console.warn("Mensagem ignorada");
+        return;
+      }
+
+      // Pegamos o payload real
+      const artworks = event.data.payload;
+
+      // Salvamos no localStorage deste domínio (unity)
+      localStorage.setItem("selectedArtworks", artworks);
+      console.log("selectedArtworks salvo no localStorage!");
+
+      // Redirecionar para a Unity WebGL
+      window.location.href = "/";
+    });
+  </script>
+</body>
+
 </html>
