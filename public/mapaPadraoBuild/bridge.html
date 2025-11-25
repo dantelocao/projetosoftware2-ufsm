@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <title>Bridge</title>
 </head>
 
-<body style="background: #111; color: white; font-family: sans-serif;">
+<body style="background:#111;color:white;font-family:sans-serif;">
   <h2>Sincronizando dados...</h2>
   <p>Aguarde, estamos preparando a visualização 3D.</p>
 
@@ -14,39 +13,38 @@
     console.log("Bridge carregado. Aguardando mensagem...");
 
     const ORIGINS_PERMITIDAS = [
-      "https://projetosoftware2.vercel.app",
-      "https://projetosoftware2-ufsm.vercel.app"
+      "https://projetosoftware2.vercel.app"
     ];
 
     window.addEventListener("message", (event) => {
-      console.log("Mensagem recebida:", event.data, " | origem:", event.origin);
 
-      // ❌ Se origem não for aceita → não processa
+      // Garantir origem correta
       if (!ORIGINS_PERMITIDAS.includes(event.origin)) {
-        console.warn("Origem não permitida:", event.origin);
         return;
       }
 
-      // ❌ Ignora mensagens que não sejam do tipo certo
-      if (!event.data || event.data.type !== "SET_SELECTED_ARTWORKS") {
-        console.warn("Mensagem ignorada", event.data);
+      // Garantir estrutura correta da mensagem
+      if (
+        !event.data ||
+        typeof event.data !== "object" ||
+        event.data.type !== "SET_SELECTED_ARTWORKS"
+      ) {
         return;
       }
 
-      // ✅ Pegamos os dados enviados
+      // Pego o payload REAL vindo do deploy1
       const artworks = event.data.payload;
 
-      // ✅ Salvamos no localStorage do DEPLOY 2
+      // Salvar no localStorage do deploy2
       localStorage.setItem("selectedArtworks", artworks);
+
       console.log("selectedArtworks salvo com sucesso!");
 
-      // ⏳ Aguarda 100 ms para garantir escrita no localStorage
+      // Redirecionar para a Unity
       setTimeout(() => {
-        // ✅ Redirecionar para a Unity
         window.location.href = "/";
-      }, 100);
+      }, 50);
     });
   </script>
 </body>
-
 </html>
